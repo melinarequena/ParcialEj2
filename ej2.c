@@ -29,10 +29,10 @@
 int desencolar(Cola * cola) {
     if (cola->tamanio == 0) {
         printf("La cola esta vacia\n");
-        return -1; //Error
+        return -100; //Error
     } else {
         int elementoAEliminar = cola->cola[cola->posicionDeExtraccion];
-        cola->cola[cola->posicionDeExtraccion] = (-100); //flagguearlo
+        cola->cola[cola->posicionDeExtraccion] = 0; //flagguearlo
         cola->posicionDeExtraccion = siguientePosicion(cola, cola->posicionDeExtraccion);
         cola->tamanio--;
         return elementoAEliminar;
@@ -61,12 +61,7 @@ void imprimir(Cola *cola) {
         printf("La cola esta vacia\n");
     }else{
         printf("Imprimiendo cola\n");
-        while(i<=cola->tamanio){
-            printf("%d\t", cola->cola[i]);
-            i++;
-        }
-        i=0;
-        while(i<=cola->posicionDeInsersion){
+        while(i<cola->tamanio){
             printf("%d\t", cola->cola[i]);
             i++;
         }
@@ -145,10 +140,10 @@ Cola * newCola(int capacidad) {
 void encolar(Cola *cola, int elemento) {
 
     if ( llena(cola) ) {
-        printf("La cola esta llena.\n");
+        printf("\nLa cola esta llena.\n");
         return;
     }
-
+    printf("\nEncolo el numero %d en la cola\n", elemento);
     cola->cola[cola->posicionDeInsersion] = elemento;
     cola->posicionDeInsersion = siguientePosicion(cola, cola->posicionDeInsersion);
     cola->tamanio++;
