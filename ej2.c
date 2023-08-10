@@ -29,10 +29,10 @@
 int desencolar(Cola * cola) {
     if (cola->tamanio == 0) {
         printf("La cola esta vacia\n");
-        return -100; //Error
+        return (-1); //Error
     } else {
         int elementoAEliminar = cola->cola[cola->posicionDeExtraccion];
-        cola->cola[cola->posicionDeExtraccion] = 0; //flagguearlo
+        cola->cola[cola->posicionDeExtraccion] = -100; //flagguearlo
         cola->posicionDeExtraccion = siguientePosicion(cola, cola->posicionDeExtraccion);
         cola->tamanio--;
         return elementoAEliminar;
@@ -56,14 +56,17 @@ int desencolar(Cola * cola) {
  *  */
 
 void imprimir(Cola *cola) {
-    int i=cola->posicionDeExtraccion;
+    int i=cola->posicionDeExtraccion; //puede ser distinto de cero
     if(cola->tamanio==0){
         printf("La cola esta vacia\n");
     }else{
         printf("Imprimiendo cola\n");
-        while(i<cola->tamanio){
+        int cont =0; // se va a imprimir la cantidad de veces necesaria hasta
+        //llegar al tamanio
+        while(cont<cola->tamanio){
             printf("%d\t", cola->cola[i]);
-            i++;
+            i = siguientePosicion(cola, i);
+            cont++;
         }
         printf("\n");
     }
@@ -111,9 +114,22 @@ void imprimir(Cola *cola) {
 
 
 void intercambiarValores(Cola *cola, int posicionEnLaCola, int posicionesHaciaAdelante) {
-    int temp = cola->cola[posicionEnLaCola]; //cola->vector[posaborrar]
-    cola->cola[posicionEnLaCola] = cola->cola[posicionEnLaCola+posicionesHaciaAdelante]; //cola->v[posaborrar] = cola->v[reemplazo]
-    cola->cola[posicionEnLaCola+posicionesHaciaAdelante] = temp;
+    if(cola->tamanio<2){
+        printf("No existen elementos para intercambiar\n");
+        exit (-1);
+    }else{
+        int cont = 0;
+        int pos = posicionEnLaCola;
+        while(cont != posicionesHaciaAdelante){
+            pos = siguientePosicion(cola, posicionEnLaCola);
+            cont++;
+        }
+        int temp = cola->cola[pos];
+        cola->cola[pos] = cola->cola[posicionEnLaCola];
+        cola->cola[posicionEnLaCola] = temp;
+
+    }
+
 
     /* agregar código */
 }
